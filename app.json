@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -21,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/calculator.png",
         "backgroundColor": "#FFA0A0"
-      }
+      },
+      "package": "com.drscripts.calculator"
     },
     "web": {
       "favicon": "./assets/favicon.png"
