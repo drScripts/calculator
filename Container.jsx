@@ -3,60 +3,25 @@ import { Box, Heading, HStack, VStack, Button, Text } from "native-base";
 import Calculatorboxitem from "./components/CalculatorBoxItem";
 
 const Container = () => {
-  const [lastVal, setLastVal] = useState(null);
   const [current, setCurrent] = useState(0);
   const [display, setDisplay] = useState(0);
   const [lastOperator, setLastOperator] = useState(null);
-
-  const calculate = () => {
-    let value;
-    switch (lastOperator) {
-      case "-":
-        value = Number(lastVal) - Number(current);
-        break;
-      case "+":
-        value = Number(lastVal) + Number(current);
-        break;
-      case "*":
-        value = Number(lastVal) * Number(current);
-        break;
-      case "/":
-        value = Number(lastVal) / Number(current);
-        break;
-      default:
-        value = Number(lastVal) % Number(current);
-        break;
-    }
-
-    setLastVal(value);
-    setDisplay(value);
-    setCurrent(0);
-  };
+  const [string, setString] = useState("");
 
   const operator = (operator) => {
     if (operator !== "=") {
-      setCurrent(0);
-      setDisplay(0);
+      setDisplay(operator);
       setLastOperator(operator);
-      if (!lastVal) {
-        setLastVal(current);
-      }
+      setString(string + operator);
     } else {
-      calculate();
+      setDisplay(eval(string));
     }
   };
 
   const onChange = (value) => {
     if (Number(value) || Number(value) === 0) {
-      let values = 0;
-      if (current == 0) {
-        values = value;
-      } else {
-        values = current + value;
-      }
-
-      setCurrent(values);
-      setDisplay(values);
+      setString(string + value);
+      setDisplay(value);
     } else {
       switch (value) {
         case "delete":
@@ -67,8 +32,8 @@ const Container = () => {
         case "clear":
           setCurrent(0);
           setDisplay(0);
-          setLastVal(null);
           setLastOperator(null);
+          setString("");
           break;
         default:
           operator(value);
